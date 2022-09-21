@@ -1,5 +1,4 @@
-// Testing api search
-let searchInput = "batman"
+let searchInput;
 
 const renderMovies = (movies) => {
     console.log(movies);
@@ -30,3 +29,11 @@ async function getFavorites() {
     }
 }
 getFavorites();
+
+// Event Listeners
+
+// Grab the text value from the search input
+$('#form').submit((e) => { 
+    e.preventDefault();
+    searchInput = $('#search').val();
+});
