@@ -1,26 +1,30 @@
 // Testing api search
 let searchInput = "batman"
 
-// Call to Tv Maze API to get search results 
-async function getTvMaze() {
-    const  url = `https://api.tvmaze.com/search/shows?q=${searchInput}`
+const renderMovies = (movies) => {
+    console.log(movies);
+}
+
+// Call to OMDB API to get search results 
+async function getMovies() {
+    const omDbUrl = `http://www.omdbapi.com/?s=${searchInput}&apikey=${OMDB_TOKEN}`;
     try {
-        const response = await fetch(url);
+        const response = await fetch(omDbUrl);
         const data = await response.json();
-        console.log(data);
+        renderMovies(data);
     } catch (error) {
         console.log(error);
     }
 }
-getTvMaze();
+getMovies();
 
-// Call to glitch API to get favorite shows
+// Call to glitch API to get favorite movies
 async function getFavorites() {
     const  glitchUrl = "https://fantasy-seasoned-leopard.glitch.me/shows"
     try {
         const response = await fetch(glitchUrl);
         const data = await response.json();
-        console.log(data);
+        renderMovies(data);
     } catch (error) {
         console.log(error);
     }
