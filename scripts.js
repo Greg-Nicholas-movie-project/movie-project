@@ -1,16 +1,31 @@
 let searchInput;
+let baseImgUrl = "https://image.tmdb.org/t/p/w500"
 
 const renderMovies = (movies) => {
-    console.log(movies);
+    movies.forEach((movie) => {
+        $('#movie-container').append(`
+            <div class="movie">
+                <img src=${baseImgUrl + movie.poster_path}>
+                <div class="movie-info">
+                    <h2>${movie.title}</h2>
+                    <span>${movie.vote_average}</span>
+                </div>
+                <div class="synopsis">
+                    <h5>Synopsis</h5>
+                    <p>${movie.overview}</p>
+                </div>
+            </div>
+        `)
+    })
 }
 
 // Call to OMDB API to get search results 
 async function getMovies() {
-    const omDbUrl = `http://www.omdbapi.com/?s=${searchInput}&apikey=${OMDB_TOKEN}`;
+    const movieDbUrl = `http://api.themoviedb.org/3/search/movie?api_key=${MOVIE_DB_TOKEN}&query=${searchInput}`;
     try {
-        const response = await fetch(omDbUrl);
+        const response = await fetch(movieDbUrl);
         const data = await response.json();
-        renderMovies(data);
+        renderMovies(data.results);
         document.getElementById('search').value = "";
     } catch (error) {
         console.log(error);
@@ -29,7 +44,7 @@ async function getFavorites() {
         console.log(error);
     }
 }
-getFavorites();
+// getFavorites();
 
 // Event Listeners
 
