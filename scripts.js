@@ -11,6 +11,7 @@ async function getMovies() {
         const response = await fetch(omDbUrl);
         const data = await response.json();
         renderMovies(data);
+        document.getElementById('search').value = "";
     } catch (error) {
         console.log(error);
     }
@@ -36,4 +37,5 @@ getFavorites();
 $('#form').submit((e) => { 
     e.preventDefault();
     searchInput = $('#search').val();
+    getMovies(searchInput);
 });
