@@ -14,3 +14,39 @@ header {
     background-color: #1030AD;
     align-items: center;
 }
+header h1 {
+    color: #1310AD;
+    border:  3px solid #1310AD;
+    background-color: #FFC836;
+    border-radius: 15px;
+}
+
+h1 {
+    border: 2px solid white;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: white;
+}
+
+.title {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.search {
+    background-color: transparent;
+    padding: 0.5rem 1rem;
+    border: 2px solid #FFC836;
+    border-radius: 50px;
+    font-size: 1rem;
+    color: white;
+
+}
+
+.search:focus{
+    outline: 0;
+    background-color: #4169E1;
+}
+
+.search::placeholder {
+    color: #7378c5;
+}
