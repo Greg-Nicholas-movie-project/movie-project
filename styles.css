@@ -1,2 +1,16 @@
+* {
+    box-sizing: border-box;
+}
 
+body {
+    margin: 0;
+    background-color: #FFC836;
+}
 
+header {
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    background-color: #1030AD;
+    align-items: center;
+}
