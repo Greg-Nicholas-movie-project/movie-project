@@ -7,6 +7,7 @@ const renderMovies = (movies) => {
     movies.forEach((movie) => {
         $('#movie-container').append(`
             <div class="movie">
+                <p class="add-btn">Add to Favorites</p>
                 <img src=${baseImgUrl + movie.poster_path}>
                 <div class="movie-info">
                     <h2>${movie.title}</h2>
@@ -23,7 +24,6 @@ const renderMovies = (movies) => {
 
 // Call to OMDB API to get search results 
 async function getMovies(url, searchInput) {
-    console.log(url, searchInput);
     try {
         const response = await fetch(url);
         const data = await response.json();
@@ -36,16 +36,16 @@ async function getMovies(url, searchInput) {
 
 // Call to glitch API to get favorite movies
 async function getFavorites() {
-    const  glitchUrl = "https://fantasy-seasoned-leopard.glitch.me/shows"
+    const  glitchUrl = "https://fantasy-seasoned-leopard.glitch.me/movies"
     try {
         const response = await fetch(glitchUrl);
         const data = await response.json();
-        renderMovies(data);
+        console.log(data);
     } catch (error) {
         console.log(error);
     }
 }
-// getFavorites();
+getFavorites();
 
 // Event Listeners
 
@@ -56,6 +56,14 @@ $('#form').submit((e) => {
     const movieSearchUrl = `http://api.themoviedb.org/3/search/movie?api_key=${MOVIE_DB_TOKEN}&query=${searchInput}`;
     getMovies(movieSearchUrl, searchInput);
 });
+
+// Capture users pick to add to favorites
+$(document).click('.add-btn', function(e) {
+    let img = e.target.nextElementSibling.currentSrc;
+    let title = e.target.nextElementSibling.nextElementSibling.children[0].innerHTML;
+    let rating = e.target.nextElementSibling.nextElementSibling.children[1].innerHTML;
+    console.log(title, rating, img);
+})
 
 // Onload popular movies
 getMovies(popularUrl);
