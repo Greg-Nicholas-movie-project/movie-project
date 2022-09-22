@@ -71,7 +71,6 @@ async function getFavorites() {
     try {
         const response = await fetch(glitchUrl);
         const data = await response.json();
-        console.log(data);
         renderFavorites(data);
     } catch (error) {
         console.log(error);
