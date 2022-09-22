@@ -45,7 +45,6 @@ async function getFavorites() {
         console.log(error);
     }
 }
-getFavorites();
 
 // Event Listeners
 
@@ -57,12 +56,32 @@ $('#form').submit((e) => {
     getMovies(movieSearchUrl, searchInput);
 });
 
-// Capture users pick to add to favorites
+// Post new movie object to gitch data base
+const postMovie = (newMovieObj) => {
+    const postUrl = "https://fantasy-seasoned-leopard.glitch.me/movies";
+    const options = {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newMovieObj),
+    };
+    fetch(postUrl, options)
+    .then(res => {
+        console.log(res)
+        getFavorites();
+    })
+    .catch(error => console.log(error));
+}
+
+// Capture users favorite pick, store in object and call postMovie function
 $(document).click('.add-btn', function(e) {
-    let img = e.target.nextElementSibling.currentSrc;
-    let title = e.target.nextElementSibling.nextElementSibling.children[0].innerHTML;
-    let rating = e.target.nextElementSibling.nextElementSibling.children[1].innerHTML;
-    console.log(title, rating, img);
+    const newMovieObj = {
+        title: e.target.nextElementSibling.nextElementSibling.children[0].innerHTML,
+        poster_path: e.target.nextElementSibling.currentSrc,
+        vote_average: e.target.nextElementSibling.nextElementSibling.children[1].innerHTML
+    }
+    postMovie(newMovieObj);
 })
 
 // Onload popular movies
