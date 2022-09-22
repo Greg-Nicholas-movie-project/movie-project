@@ -45,7 +45,7 @@ $('#form').submit((e) => {
     getMovies(movieSearchUrl, searchInput);
 });
 
-// Onload popular movies
+// Onload render popular movies
 getMovies(popularUrl);
 
 //--- Get and post favorite movies, API calls and rendering ---//
@@ -78,9 +78,10 @@ async function getFavorites() {
     }
 }
 
+// Onload render favorite movies
 getFavorites();
 
-// Post new movie object to gitch data base
+// Post new movie object to gitch database
 const postMovie = (newMovieObj) => {
     const options = {
         method: "POST",
@@ -98,7 +99,6 @@ const postMovie = (newMovieObj) => {
 }
 
 // Event listener to capture users favorite movie, store in object and call postMovie function
-
 $(document).on('click', '.add-btn', function() {
     $(this).html('Added To Favorites')
     const newMovieObj = {
@@ -109,8 +109,23 @@ $(document).on('click', '.add-btn', function() {
     postMovie(newMovieObj);
 })
 
+//--- Delete and render updated movies ---//
+
+// Delete movie object from gitch database
+const deleteMovie = (movieId) => {
+    const options = {
+        method: "DELETE",
+        headers: {'Content-Type': 'application/json'}
+    };
+    fetch(`${glitchUrl}/${movieId}`, options)
+    .then(res => {
+        getFavorites();
+    })
+    .catch(error => console.log(error));
+}
+
 // Event listener to delete movie from favorites
 $(document).on('click', '.delete-btn', function() {
-    const id = $(this)[0].id
-    console.log(id);
-})
+    const movieId = $(this)[0].id;
+    deleteMovie(movieId);
+});
