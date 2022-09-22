@@ -80,6 +80,7 @@ const postMovie = (newMovieObj) => {
 
 // Event listener to capture users favorite movie, store in object and call postMovie function
 $(document).click('.add-btn', function(e) {
+    e.target.innerHTML = "Added movie to favorites!"
     const newMovieObj = {
         title: e.target.nextElementSibling.nextElementSibling.children[0].innerHTML,
         poster_path: e.target.nextElementSibling.currentSrc,
