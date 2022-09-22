@@ -110,3 +110,13 @@ main {
 .movie:hover .synopsis {
     transform: translateY(0);
 }
+
+.add-btn {
+    color: white;
+    cursor: pointer;
+    margin: .5em;
+}
+
+.add-btn:hover {
+    opacity: .8;
+}
