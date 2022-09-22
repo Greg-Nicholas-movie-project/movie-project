@@ -25,6 +25,7 @@ const renderMovies = (movies) => {
     })
 }
 
+
 // Call to OMDB API to get search results 
 async function getMovies(url, searchInput) {
     try {
@@ -50,16 +51,36 @@ getMovies(popularUrl);
 
 //--- Get and post favorite movies, API calls and rendering ---//
 
+const renderFavorites = (movies) => {
+    $('#favorites-container').empty();
+    movies.forEach((movie) => {
+        $('#favorites-container').append(`
+            <div class="movie">
+                <p class="delete-btn">Delete</p>
+                <img src=${movie.poster_path}>
+                <div class="movie-info">
+                    <h2>${movie.title}</h2>
+                    <span>${movie.vote_average}</span>
+                </div>
+            </div>
+        `);
+    });
+};
+
+
 // Call to glitch API to get favorite movies
 async function getFavorites() {
     try {
         const response = await fetch(glitchUrl);
         const data = await response.json();
         console.log(data);
+        renderFavorites(data);
     } catch (error) {
         console.log(error);
     }
 }
+
+getFavorites();
 
 // Post new movie object to gitch data base
 const postMovie = (newMovieObj) => {

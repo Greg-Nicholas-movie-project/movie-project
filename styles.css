@@ -120,3 +120,7 @@ main {
 .add-btn:hover {
     opacity: .8;
 }
+
+.hide {
+    display: none;
+}
