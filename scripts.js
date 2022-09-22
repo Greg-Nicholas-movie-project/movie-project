@@ -25,7 +25,6 @@ const renderMovies = (movies) => {
     })
 }
 
-
 // Call to OMDB API to get search results 
 async function getMovies(url, searchInput) {
     try {
@@ -56,7 +55,7 @@ const renderFavorites = (movies) => {
     movies.forEach((movie) => {
         $('#favorites-container').append(`
             <div class="movie">
-                <p class="delete-btn">Delete</p>
+                <p class="delete-btn" id="${movie.id}">Delete</p>
                 <img src=${movie.poster_path}>
                 <div class="movie-info">
                     <h2>${movie.title}</h2>
@@ -66,7 +65,6 @@ const renderFavorites = (movies) => {
         `);
     });
 };
-
 
 // Call to glitch API to get favorite movies
 async function getFavorites() {
@@ -100,12 +98,19 @@ const postMovie = (newMovieObj) => {
 }
 
 // Event listener to capture users favorite movie, store in object and call postMovie function
-$(document).click('.add-btn', function(e) {
-    e.target.innerHTML = "Added movie to favorites!"
+
+$(document).on('click', '.add-btn', function() {
+    $(this).html('Added To Favorites')
     const newMovieObj = {
-        title: e.target.nextElementSibling.nextElementSibling.children[0].innerHTML,
-        poster_path: e.target.nextElementSibling.currentSrc,
-        vote_average: e.target.nextElementSibling.nextElementSibling.children[1].innerHTML
+        title: $(this).siblings()[1].children[0].innerHTML,
+        poster_path: $(this).siblings()[0].src,
+        vote_average: $(this).siblings()[1].children[1].innerHTML
     }
     postMovie(newMovieObj);
+})
+
+// Event listener to delete movie from favorites
+$(document).on('click', '.delete-btn', function() {
+    const id = $(this)[0].id
+    console.log(id);
 })

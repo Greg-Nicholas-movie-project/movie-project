@@ -51,7 +51,8 @@ h1 {
     color: #7378c5;
 }
 
-main {
+main,
+#favorites-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -111,13 +112,15 @@ main {
     transform: translateY(0);
 }
 
-.add-btn {
+.add-btn,
+.delete-btn {
     color: white;
     cursor: pointer;
     margin: .5em;
 }
 
-.add-btn:hover {
+.add-btn:hover,
+.delete-btn:hover {
     opacity: .8;
 }
 
