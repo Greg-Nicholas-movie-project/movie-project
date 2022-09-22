@@ -1,6 +1,9 @@
 let searchInput;
-let baseImgUrl = "https://image.tmdb.org/t/p/w500"
-const popularUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${MOVIE_DB_TOKEN}&language=en-US&page=1`
+let baseImgUrl = "https://image.tmdb.org/t/p/w500";
+const glitchUrl = "https://fantasy-seasoned-leopard.glitch.me/movies";
+const popularUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${MOVIE_DB_TOKEN}&language=en-US&page=1`;
+
+//--- Popular movies and search movie API calls and rendering ---//
 
 const renderMovies = (movies) => {
     $('#movie-container').empty();
@@ -34,9 +37,21 @@ async function getMovies(url, searchInput) {
     }
 }
 
+// Event Listener to grab the text value from the search input
+$('#form').submit((e) => { 
+    e.preventDefault();
+    searchInput = $('#search').val();
+    const movieSearchUrl = `http://api.themoviedb.org/3/search/movie?api_key=${MOVIE_DB_TOKEN}&query=${searchInput}`;
+    getMovies(movieSearchUrl, searchInput);
+});
+
+// Onload popular movies
+getMovies(popularUrl);
+
+//--- Get and post favorite movies, API calls and rendering ---//
+
 // Call to glitch API to get favorite movies
 async function getFavorites() {
-    const  glitchUrl = "https://fantasy-seasoned-leopard.glitch.me/movies"
     try {
         const response = await fetch(glitchUrl);
         const data = await response.json();
@@ -46,19 +61,8 @@ async function getFavorites() {
     }
 }
 
-// Event Listeners
-
-// Grab the text value from the search input
-$('#form').submit((e) => { 
-    e.preventDefault();
-    searchInput = $('#search').val();
-    const movieSearchUrl = `http://api.themoviedb.org/3/search/movie?api_key=${MOVIE_DB_TOKEN}&query=${searchInput}`;
-    getMovies(movieSearchUrl, searchInput);
-});
-
 // Post new movie object to gitch data base
 const postMovie = (newMovieObj) => {
-    const postUrl = "https://fantasy-seasoned-leopard.glitch.me/movies";
     const options = {
         method: "POST",
         headers: {
@@ -66,7 +70,7 @@ const postMovie = (newMovieObj) => {
         },
         body: JSON.stringify(newMovieObj),
     };
-    fetch(postUrl, options)
+    fetch(glitchUrl, options)
     .then(res => {
         console.log(res)
         getFavorites();
@@ -74,7 +78,7 @@ const postMovie = (newMovieObj) => {
     .catch(error => console.log(error));
 }
 
-// Capture users favorite pick, store in object and call postMovie function
+// Event listener to capture users favorite movie, store in object and call postMovie function
 $(document).click('.add-btn', function(e) {
     const newMovieObj = {
         title: e.target.nextElementSibling.nextElementSibling.children[0].innerHTML,
@@ -83,6 +87,3 @@ $(document).click('.add-btn', function(e) {
     }
     postMovie(newMovieObj);
 })
-
-// Onload popular movies
-getMovies(popularUrl);
