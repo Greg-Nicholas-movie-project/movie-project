@@ -1,7 +1,7 @@
 let searchInput;
 let baseImgUrl = "https://image.tmdb.org/t/p/w500";
 const glitchUrl = "https://fantasy-seasoned-leopard.glitch.me/movies";
-const popularUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${MOVIE_DB_TOKEN}&language=en-US&page=1`;
+const popularUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${MOVIE_DB_TOKEN}&language=en-US&page=1&include_adult=false`;
 
 //--- Popular movies and search movie API calls and rendering ---//
 
@@ -41,7 +41,7 @@ async function getMovies(url, searchInput) {
 $('#form').submit((e) => { 
     e.preventDefault();
     searchInput = $('#search').val();
-    const movieSearchUrl = `http://api.themoviedb.org/3/search/movie?api_key=${MOVIE_DB_TOKEN}&query=${searchInput}`;
+    const movieSearchUrl = `http://api.themoviedb.org/3/search/movie?api_key=${MOVIE_DB_TOKEN}&query=${searchInput}&include_adult=false`;
     getMovies(movieSearchUrl, searchInput);
 });
 
