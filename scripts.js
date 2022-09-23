@@ -55,7 +55,10 @@ const renderFavorites = (movies) => {
     movies.forEach((movie) => {
         $('#favorites-container').append(`
             <div class="movie">
-                <p class="delete-btn" id="${movie.id}">Delete</p>
+                <div class="d-flex justify-content-between">
+                    <p class="delete-btn" id="${movie.id}">Delete</p>
+                    <p class="edit-btn" data-bs-toggle="modal" data-bs-target="#editModal">Edit</p>
+                </div>
                 <img src=${movie.poster_path}>
                 <div class="movie-info">
                     <h2>${movie.title}</h2>
