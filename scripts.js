@@ -3,6 +3,8 @@ let baseImgUrl = "https://image.tmdb.org/t/p/w500";
 const glitchUrl = "https://fantasy-seasoned-leopard.glitch.me/movies";
 const popularUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${MOVIE_DB_TOKEN}&language=en-US&page=1&include_adult=false`;
 
+// urls for different genres
+
 //--- Popular movies and search movie API calls and rendering ---//
 
 const renderMovies = (movies) => {
@@ -13,7 +15,7 @@ const renderMovies = (movies) => {
                 <p class="add-btn">Add to Favorites</p>
                 <img src=${baseImgUrl + movie.poster_path}>
                 <div class="movie-info">
-                    <h2>${movie.title}</h2>
+                    <h5>${movie.title}</h5>
                     <span>${movie.vote_average}</span>
                 </div>
                 <div class="synopsis">
@@ -24,7 +26,6 @@ const renderMovies = (movies) => {
         `)
     })
 }
-
 // Call to OMDB API to get search results 
 async function getMovies(url, searchInput) {
     try {
@@ -48,6 +49,7 @@ $('#form').submit((e) => {
 // Onload render popular movies
 getMovies(popularUrl);
 
+
 //--- Get and post favorite movies, API calls and rendering ---//
 
 const renderFavorites = (movies) => {
@@ -61,7 +63,7 @@ const renderFavorites = (movies) => {
                 </div>
                 <img src=${movie.poster_path}>
                 <div class="movie-info">
-                    <h2>${movie.title}</h2>
+                    <h5>${movie.title}</h5>
                     <span>${movie.vote_average}</span>
                 </div>
             </div>
