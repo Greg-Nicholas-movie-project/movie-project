@@ -131,3 +131,11 @@ $(document).on('click', '.delete-btn', function() {
     const movieId = $(this)[0].id;
     deleteMovie(movieId);
 });
+
+//--- Edit movies ---//
+
+// Event listener to edit movie from favorites
+$(document).on('click', '.edit-btn', function() {
+    const movieId = $(this)[0].previousElementSibling.id;
+    console.log(movieId);
+})
