@@ -1,4 +1,5 @@
 let searchInput;
+let movieId;
 let baseImgUrl = "https://image.tmdb.org/t/p/w500";
 const glitchUrl = "https://fantasy-seasoned-leopard.glitch.me/movies";
 const popularUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${MOVIE_DB_TOKEN}&language=en-US&page=1&include_adult=false`;
@@ -85,7 +86,7 @@ async function getFavorites() {
 // Onload render favorite movies
 getFavorites();
 
-// Post new movie object to gitch database
+// Post new movie object to glitch database
 const postMovie = (newMovieObj) => {
     const options = {
         method: "POST",
@@ -115,7 +116,7 @@ $(document).on('click', '.add-btn', function() {
 
 //--- Delete and render updated movies ---//
 
-// Delete movie object from gitch database
+// Delete movie object from glitch database
 const deleteMovie = (movieId) => {
     const options = {
         method: "DELETE",
@@ -136,8 +137,15 @@ $(document).on('click', '.delete-btn', function() {
 
 //--- Edit movies ---//
 
+
+
 // Event listener to edit movie from favorites
 $(document).on('click', '.edit-btn', function() {
-    const movieId = $(this)[0].previousElementSibling.id;
-    console.log(movieId);
-})
+    movieId = $(this)[0].previousElementSibling.id;
+    $('#edit-form').submit(function (e) { 
+        e.preventDefault();
+        const newTitle = $('#newTitle').val();
+        const newRating = $('#newRating').val();
+        EditMovie(movieId, newTitle, newRating);
+    });
+});
