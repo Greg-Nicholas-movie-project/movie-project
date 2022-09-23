@@ -1,5 +1,7 @@
 let searchInput;
 let movieId;
+let newTitle = document.querySelector('#newTitle');
+let newRating = document.querySelector('#newRating');
 let baseImgUrl = "https://image.tmdb.org/t/p/w500";
 const glitchUrl = "https://fantasy-seasoned-leopard.glitch.me/movies";
 const popularUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${MOVIE_DB_TOKEN}&language=en-US&page=1&include_adult=false`;
@@ -7,7 +9,6 @@ const popularUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${MOVIE_D
 // urls for different genres
 
 //--- Popular movies and search movie API calls and rendering ---//
-
 const renderMovies = (movies) => {
     $('#movie-container').empty();
     movies.forEach((movie) => {
@@ -27,6 +28,7 @@ const renderMovies = (movies) => {
         `)
     })
 }
+
 // Call to OMDB API to get search results 
 async function getMovies(url, searchInput) {
     try {
@@ -49,7 +51,6 @@ $('#form').submit((e) => {
 
 // Onload render popular movies
 getMovies(popularUrl);
-
 
 //--- Get and post favorite movies, API calls and rendering ---//
 
@@ -88,6 +89,7 @@ getFavorites();
 
 // Post new movie object to glitch database
 const postMovie = (newMovieObj) => {
+    // ADD conditional to check for duplicates
     const options = {
         method: "POST",
         headers: {
@@ -160,8 +162,8 @@ $(document).on('click', '.edit-btn', function() {
     movieId = $(this)[0].previousElementSibling.id;
     $('#edit-form').submit(function (e) { 
         e.preventDefault();
-        const newTitle = $('#newTitle').val();
-        const newRating = $('#newRating').val();
-        EditMovie(movieId, newTitle, newRating);
+        EditMovie(movieId, newTitle.value, newRating.value);
+        newTitle.value = '';
+        newRating.value = '';
     });
 });
