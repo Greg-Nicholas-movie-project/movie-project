@@ -2,7 +2,7 @@ let searchInput;
 let movieId;
 let newTitle = document.querySelector('#newTitle');
 let newRating = document.querySelector('#newRating');
-let baseImgUrl = "https://image.tmdb.org/t/p/w500";
+const baseImgUrl = "https://image.tmdb.org/t/p/w500";
 const glitchUrl = "https://fantasy-seasoned-leopard.glitch.me/movies";
 const popularUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${MOVIE_DB_TOKEN}&language=en-US&page=1&include_adult=false`;
 
@@ -78,6 +78,7 @@ async function getFavorites() {
     try {
         const response = await fetch(glitchUrl);
         const data = await response.json();
+        console.log(data);
         renderFavorites(data);
     } catch (error) {
         console.log(error);
