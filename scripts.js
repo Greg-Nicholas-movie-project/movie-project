@@ -2,11 +2,17 @@ let searchInput;
 let movieId;
 let newTitle = document.querySelector('#newTitle');
 let newRating = document.querySelector('#newRating');
+const loaderEl = document.querySelector('.loader');
 const baseImgUrl = "https://image.tmdb.org/t/p/w500";
 const glitchUrl = "https://fantasy-seasoned-leopard.glitch.me/movies";
 const popularUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${MOVIE_DB_TOKEN}&language=en-US&page=1&include_adult=false`;
 
 // urls for different genres
+
+// Function to hide loader
+const showContent = () => {
+    loaderEl.classList.add('hidden');
+}
 
 //--- Popular movies and search movie API calls and rendering ---//
 const renderMovies = (movies) => {
@@ -25,12 +31,15 @@ const renderMovies = (movies) => {
                     <p>${movie.overview}</p>
                 </div>
             </div>
-        `)
-    })
+        `);
+    });
+    showContent();
 }
 
 // Call to OMDB API to get search results 
 async function getMovies(url, searchInput) {
+    // Show loader
+    loaderEl.classList.remove('hidden');
     try {
         const response = await fetch(url);
         const data = await response.json();
