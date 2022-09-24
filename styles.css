@@ -8,9 +8,7 @@ nav {
     background-color: #FFC836;
     color: #1310AD;
 }
-.movie-title {
-    color: blue;
-}
+
 .nav-tabs .nav-item .nav-link:hover {
     color: #1310AD;
 }
@@ -18,19 +16,19 @@ nav {
 .nav-link {
     color: blue
 }
+.btn {
+    background-color: #FFC836;
+}
+
+
 body {
     margin: 0;
     background-color: #FFC836;
 }
 
-
-
-h1 {
-    border: 2px solid white;
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: white;
+.movie-title {
+    color: #FFC836;
 }
-
 .title {
     display: flex;
     justify-content: flex-start;

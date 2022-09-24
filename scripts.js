@@ -60,7 +60,7 @@ const renderFavorites = (movies) => {
         $('#favorites-container').append(`
             <div class="movie">
                 <div class="d-flex justify-content-between">
-                    <p class="delete-btn" id="${movie.id}">Delete</p>
+                    <p class="delete-btn" id="${movie.id}"><i class="fa-solid fa-trash-can"></i>git </p>
                     <p class="edit-btn" data-bs-toggle="modal" data-bs-target="#editModal">Edit</p>
                 </div>
                 <img src=${movie.poster_path}>
