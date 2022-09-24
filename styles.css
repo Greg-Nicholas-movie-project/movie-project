@@ -4,8 +4,19 @@
 nav {
     background-color: #1310AD;
 }
-.navbar a {
-    color: #FFC836;
+.nav-tabs .nav-item .nav-link.active {
+    background-color: #FFC836;
+    color: #1310AD;
+}
+.movie-title {
+    color: blue;
+}
+.nav-tabs .nav-item .nav-link:hover {
+    color: #1310AD;
+}
+
+.nav-link {
+    color: blue
 }
 body {
     margin: 0;
