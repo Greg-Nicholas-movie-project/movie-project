@@ -43,7 +43,9 @@ async function getMovies(url, searchInput) {
     try {
         const response = await fetch(url);
         const data = await response.json();
-        renderMovies(data.results);
+        setTimeout(() => {
+            renderMovies(data.results);
+        }, 800);
         document.getElementById('search').value = "";
     } catch (error) {
         console.log(error);
