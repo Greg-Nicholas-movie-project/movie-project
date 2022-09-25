@@ -99,21 +99,34 @@ async function getFavorites() {
 getFavorites();
 
 // Post new movie object to glitch database
-const postMovie = (newMovieObj) => {
-    // ADD conditional to check for duplicates
-    const options = {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newMovieObj),
-    };
-    fetch(glitchUrl, options)
-    .then(res => {
-        console.log(res)
-        getFavorites();
-    })
-    .catch(error => console.log(error));
+async function postMovie(newMovieObj) {
+    // Conditional to check for duplicate movies in glitch DB
+    try {
+        const res = await fetch(glitchUrl);
+        const data = await res.json();
+        const checkDuplicate = data.some((item) => item.title === newMovieObj.title);
+        // Will add to favorites if not in database
+        if (!checkDuplicate) {
+            const options = {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newMovieObj),
+            };
+            fetch(glitchUrl, options)
+            .then(res => {
+                console.log(res)
+                getFavorites();
+            })
+            .catch(error => console.log(error));
+        // Alert user movie already in DB
+        } else {
+            alert(`${newMovieObj.title} is already in Favorites List`);
+        }
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 // Event listener to capture users favorite movie, store in object and call postMovie function
