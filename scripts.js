@@ -114,13 +114,12 @@ async function postMovie(newMovieObj) {
                 },
                 body: JSON.stringify(newMovieObj),
             };
-            fetch(glitchUrl, options)
-            .then(res => {
-                console.log(res)
+            try {
+                const res = await fetch(glitchUrl, options);
                 getFavorites();
-            })
-            .catch(error => console.log(error));
-        // Alert user movie already in DB
+            } catch (error) {
+                console.log(error);
+            }
         } else {
             alert(`${newMovieObj.title} is already in Favorites List`);
         }
