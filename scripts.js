@@ -142,16 +142,17 @@ $(document).on('click', '.add-btn', function() {
 //--- Delete and render updated movies ---//
 
 // Delete movie object from glitch database
-const deleteMovie = (movieId) => {
+async function deleteMovie(movieId) {
     const options = {
         method: "DELETE",
         headers: {'Content-Type': 'application/json'}
     };
-    fetch(`${glitchUrl}/${movieId}`, options)
-    .then(res => {
+    try {
+        const res = await fetch(`${glitchUrl}/${movieId}`, options);
         getFavorites();
-    })
-    .catch(error => console.log(error));
+    } catch (error) {
+        console.log(error);
+    };
 }
 
 // Event listener to delete movie from favorites
