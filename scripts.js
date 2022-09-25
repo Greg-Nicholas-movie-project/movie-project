@@ -164,21 +164,22 @@ $(document).on('click', '.delete-btn', function() {
 //--- Edit movies ---//
 
 // Edit movie with API call to glitch db
-const EditMovie = (movieId, newTitle, newRating) => {
+async function EditMovie(movieId, newTitle, newRating) {
     const edits  = {
         title: newTitle,
         vote_average: newRating
-    }
+    };
     const options = {
         method: "PATCH",
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(edits)
     };
-    fetch(`${glitchUrl}/${movieId}`, options)
-    .then(res => {
+    try {
+        const res = await fetch(`${glitchUrl}/${movieId}`, options);
         getFavorites();
-    })
-    .catch(error => console.log(error));
+    } catch (error) {
+        console.log(error);
+    };
 }
 
 // Event listener to edit movie from favorites
