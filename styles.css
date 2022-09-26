@@ -118,7 +118,8 @@ main,
 }
 
 .add-btn,
-.delete-btn {
+.delete-btn,
+.edit-btn {
     color: white;
     cursor: pointer;
     margin: .5em;
