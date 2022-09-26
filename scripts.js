@@ -7,8 +7,6 @@ const baseImgUrl = "https://image.tmdb.org/t/p/w500";
 const glitchUrl = "https://fantasy-seasoned-leopard.glitch.me/movies";
 const popularUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${MOVIE_DB_TOKEN}&language=en-US&page=1&include_adult=false`;
 
-// urls for different genres
-
 // Function to hide loader
 const showContent = () => {
     loaderEl.classList.add('hidden');
